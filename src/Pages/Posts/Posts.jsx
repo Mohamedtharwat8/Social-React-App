@@ -1,10 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function Posts() {
-    return (
-        <>
-        </> 
-    )
+  return <div>Posts</div>;
 }
 
-export default Posts
+export default Posts;
