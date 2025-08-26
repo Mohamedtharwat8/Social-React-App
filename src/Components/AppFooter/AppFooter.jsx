@@ -1,11 +1,19 @@
-import React from 'react'
+import {
+  Footer,
+  FooterBrand,
+  FooterCopyright,
+  FooterDivider,
+  FooterLink,
+  FooterLinkGroup,
+} from "flowbite-react";
 
-function AppFooter() {
-    return (
-        <>
-            <h1>App Footer</h1>
-        </>
-    )
+export default function AppFooter() {
+  return (
+    <Footer container className=" rounded-none   ">
+      <div className="w-full text-center text-white">
+        <FooterDivider />
+        <FooterCopyright href="#" by="Tharwat™" year={2025} />
+      </div>
+    </Footer>
+  );
 }
-
-export default AppFooter
