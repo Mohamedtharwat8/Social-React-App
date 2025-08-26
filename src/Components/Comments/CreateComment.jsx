@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { UserContext } from "../Context/UserContext";
 import axios from "axios";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 
 const CreateComment = ({ id, refetch }) => {
   const { register, handleSubmit } = useForm();

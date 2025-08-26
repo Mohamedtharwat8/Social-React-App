@@ -2,7 +2,7 @@ import { initFlowbite } from "flowbite";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 export const PostEdit = ({ postId, postBody, refetch }) => {

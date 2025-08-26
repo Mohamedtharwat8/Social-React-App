@@ -2,7 +2,7 @@ import { initFlowbite } from "flowbite";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 
 export const CommentEdit = ({ commentId, commentBody, refetch }) => {
   const { register, handleSubmit, setValue } = useForm();
