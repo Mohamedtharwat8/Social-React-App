@@ -6,9 +6,9 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 export const PostEdit = ({ postId, postBody, refetch }) => {
-    const navigate = useNavigate();
-    console.log(navigate);
-    
+  const navigate = useNavigate();
+  console.log(navigate);
+
   const { register, handleSubmit, setValue } = useForm();
 
   useEffect(() => {
