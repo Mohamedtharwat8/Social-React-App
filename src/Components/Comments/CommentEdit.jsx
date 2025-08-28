@@ -1,14 +1,16 @@
-import { initFlowbite } from "flowbite";
+ 
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-export const CommentEdit = ({ commentId, commentBody, refetch }) => {
+export default function  CommentEdit   ({ commentId, commentBody, refetch })  {
   const { register, handleSubmit, setValue } = useForm();
 
   useEffect(() => {
-    initFlowbite();
+
+
+     
   }, []);
 
   async function handleUpdate(data) {

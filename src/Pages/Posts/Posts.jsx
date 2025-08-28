@@ -1,15 +1,14 @@
-/* eslint-disable no-unused-vars */
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Avatar, Button, Card } from "flowbite-react";
-import { Hourglass } from "react-loader-spinner";
 import Post from "../../Components/Post/Post";
 import AddPostModal from "../../Components/AddPostModal/AddPostModal";
-import { Circles } from "react-loader-spinner";
+
+import Loading from "../../Components/Loading/Loading";
 
 export default function Posts() {
   const [posts, setPosts] = useState(null); // Change to null instead of [null]
-  const [comments, setComments] = useState(null); // Change to null instead of [null]
+  // const [comments, setComments] = useState(null); // Change to null instead of [null]
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isLoading, setIsLoading] = useState(true); // Add loading state
 
@@ -31,9 +30,8 @@ export default function Posts() {
         console.log("posts", data.posts);
         console.log("comments", data.posts[0].comments[0]);
 
-        setComments(data.comments);
+        // setComments(data.comments);
         console.log("comments", data.posts[0].comments[0]);
-
       }
     } catch (error) {
       console.log(error);
@@ -59,7 +57,8 @@ export default function Posts() {
 
       {isLoading ? ( // Show spinner while loading
         <div className="flex justify-center items-center h-64">
-          <Circles
+          <Loading />
+          {/* <Circles
             height="80"
             width="80"
             color="#4fa94d"
@@ -67,14 +66,14 @@ export default function Posts() {
             wrapperStyle={{}}
             wrapperClass=""
             visible={true}
-          />
+          /> */}
         </div>
-      ) : posts && posts.length > 0 ? ( // Check if posts exist and have length
-        <section className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 py-10 px-3">
+      ) : posts && posts?.length > 0 ? ( // Check if posts exist and have length
+        <section className="  flex flex-col gap-4 max-w-xl mx-auto py-12">
           {posts
             .filter((post) => post && post._id)
-            .map((post) => (
-              <Post key={post._id} post={post} comments={comments[0]} />
+            ?.map((post) => (
+              <Post key={post._id} post={post} />
             ))}
         </section>
       ) : (

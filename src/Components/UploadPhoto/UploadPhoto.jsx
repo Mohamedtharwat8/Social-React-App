@@ -1,12 +1,12 @@
 import axios from "axios";
 import { useContext } from "react";
 import { toast } from "react-toastify";
-import { UserContext } from "../Context/UserContext";
 import { useForm } from "react-hook-form";
+import AuthContextProvider from "./../../Context/AuthContextProvider";
 
-const UploadPhoto = () => {
+export default function UploadPhoto() {
   const { register, handleSubmit } = useForm();
-  const { getUserData, setLoading } = useContext(UserContext);
+  const { getUserData, setLoading } = useContext(AuthContextProvider);
 
   async function handlePhoto(data) {
     const photo = new FormData();
@@ -77,6 +77,4 @@ const UploadPhoto = () => {
       </button>
     </form>
   );
-};
-
-export default UploadPhoto;
+}

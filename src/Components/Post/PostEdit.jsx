@@ -1,18 +1,17 @@
-import { initFlowbite } from "flowbite";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-export const PostEdit = ({ postId, postBody, refetch }) => {
+export default function PostEdit({ postId, postBody, refetch }) {
   const navigate = useNavigate();
   console.log(navigate);
 
   const { register, handleSubmit, setValue } = useForm();
 
   useEffect(() => {
-    initFlowbite();
+    // initFlowbite();
   }, []);
 
   async function handleUpdate(data) {
@@ -132,4 +131,4 @@ export const PostEdit = ({ postId, postBody, refetch }) => {
       </div>
     </>
   );
-};
+}

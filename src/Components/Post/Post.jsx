@@ -1,38 +1,51 @@
 import { Avatar, Card } from "flowbite-react";
 import React from "react";
+import Comment from "../Comments/Comments";
 
-export default function Post({ post, comments }) {
+export default function Post({ post }) {
+  let {
+    _id,
+    body,
+    comments,
+    createdAt,
+    image: postImage,
+    user: { name: userName, _id: user_id, image: userImage },
+  } = post;
+
   return (
     <>
       <div>
         {/* hover:scale-105 duration-300 */}
         <Card
-          key={post._id}
-          className=" h-[500px] overflow-hidden max-w-sm    "
+          key={_id}
+          className=" h-[500px] overflow-hidden  max-w-xl mx-auto   "
           imgAlt="Meaningful alt text for an image that is not purely decorative"
         >
-          <header className="  flex items-center justify-between py-3 px-2 rounded-md">
-            <h3>{post.user.name}</h3>
+          <header key={user_id} className="  flex items-center  gap-2">
             <Avatar
               alt="Post Creator"
-              img={
-                post.user ? post.user.photo : "https://picsum.photos/200/300"
-              }
+              img={userImage ? userImage : "https://picsum.photos/200/300"}
               rounded
             />
+            <div className="">
+              <h3>{userName}</h3>
+              <p>{createdAt}</p>
+            </div>
           </header>
-          <div className=" h-[300px] overflow-hidden object-cover">
+          {/* body */}
+          <p className="font-normal text-gray-700 dark:text-gray-400 line-clamp-1">
+            {body}
+          </p>
+          <div className=" h-[300px] overflow-hidden  w-full object-cover">
             <img
-              src={post.image}
+              src={postImage}
               className=" font-normal text-gray-700 dark:text-gray-400"
             />
           </div>
           <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            {post.createdAt}
+            Comments
           </h5>
-          <p className="font-normal text-gray-700 dark:text-gray-400 line-clamp-1">
-            {post.body}
-          </p>
+{/* footer */}
           {comments && comments.length > 0 ? (
             <Comment comment={comments[0]} />
           ) : null}

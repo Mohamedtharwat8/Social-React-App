@@ -7,7 +7,10 @@ import Register from "../../Pages/Auth/Register/Register";
 import NotFound from "../NotFound/NotFound";
 import ProtectedRoute from "../../Guard/ProtectedRoute";
 import ProtectedAuth from "../../Guard/ProtectedAuth";
-
+import PostDetails from "../../Pages/Posts/PostDetails";
+import Edit from "../../Components/Post/PostEdit";
+import UploadPhoto from "../../Components/UploadPhoto/UploadPhoto";
+import ChangePassword from "../../Components/ChangePassword/ChangePassword";
 const routes = createBrowserRouter([
   {
     path: "",

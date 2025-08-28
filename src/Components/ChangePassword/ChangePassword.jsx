@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import toast from "react-toastify"
+import { toast } from "react-toastify";
 import * as zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
 
@@ -22,7 +22,7 @@ const schema = zod.object({
       At least one special character`
   ),
 });
-const ChangePassword = () => {
+export default function ChangePassword() {
   const {
     register,
     handleSubmit,
@@ -76,6 +76,4 @@ const ChangePassword = () => {
       </form>
     </>
   );
-};
-
-export default ChangePassword;
+}

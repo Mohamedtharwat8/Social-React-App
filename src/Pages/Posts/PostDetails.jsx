@@ -1,16 +1,16 @@
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
-import Loading from "./../Components/Loading";
-import avatar from "../assets/avatar.png";
+import Loading from "../../Components/Loading/Loading";
+import avatar from "../../assets/avatar.webp";
 import { useQuery } from "@tanstack/react-query";
-import CreateComment from "../Components/CreateComment";
-import { useContext } from "react";
-import { UserContext } from "../Context/UserContext";
-import { CommentEdit } from "../Components/CommentEdit";
+import CreateComment from "../../Components/Comments/CreateComment";
+import { useContext } from "react";  
+import AuthContextProvider from './../../Context/AuthContextProvider';
+import  CommentEdit  from "../../Components/Comments/CommentEdit";
 
-const PostDetails = () => {
+export default function PostDetails() {
   const param = useParams();
-  const { user } = useContext(UserContext);
+  const { user } = useContext(AuthContextProvider);
   const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: ["postDetail", param.id],
     queryFn: getPost,
@@ -101,6 +101,4 @@ const PostDetails = () => {
       )}
     </>
   );
-};
-
-export default PostDetails;
+}

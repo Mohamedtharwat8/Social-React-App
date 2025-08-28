@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { UserContext } from "../Context/UserContext";
 import axios from "axios";
 import { toast } from "react-toastify";
+import AuthContextProvider from "./../../Context/AuthContextProvider";
 
-const CreateComment = ({ id, refetch }) => {
+export default function CreateComment({ id, refetch }) {
   const { register, handleSubmit } = useForm();
-  const { user } = useContext(UserContext);
+  const { user } = useContext(AuthContextProvider);
 
   async function handleComment(data) {
     await axios
@@ -51,6 +51,4 @@ const CreateComment = ({ id, refetch }) => {
       </form>
     </>
   );
-};
-
-export default CreateComment;
+}
