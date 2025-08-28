@@ -18,7 +18,7 @@ export default function Posts() {
       console.log("env", import.meta.env.VITE_BASE_URL);
 
       const { data } = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}posts?limit=20`,
+        `${import.meta.env.VITE_BASE_URL}posts?limit=10&sort=createdAt`,
         {
           headers: {
             token: localStorage.getItem("token"),

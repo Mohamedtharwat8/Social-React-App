@@ -1,6 +1,9 @@
 import { Avatar, Card } from "flowbite-react";
 import React from "react";
 import Comment from "../Comments/Comments";
+import { FaHeart } from "react-icons/fa";
+import { FaComment } from "react-icons/fa";
+import { FaShare } from "react-icons/fa";
 
 export default function Post({ post }) {
   let {
@@ -45,7 +48,15 @@ export default function Post({ post }) {
           <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
             Comments
           </h5>
-{/* footer */}
+          {/* footer */}
+          <div className="flex items-center justify-between border-b-1 border-gray-200 p-2">
+            <FaHeart />
+            <div className="flex items-center gap-2">
+              <span>{ comments?.length}</span>
+            <FaComment />
+            </div>
+            <FaShare />
+          </div>
           {comments && comments.length > 0 ? (
             <Comment comment={comments[0]} />
           ) : null}

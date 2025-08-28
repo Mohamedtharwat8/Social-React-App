@@ -1,18 +1,29 @@
-import { Button, Textarea } from "flowbite-react";
+import { Button, Spinner, Textarea } from "flowbite-react";
 import { FaUpload } from "react-icons/fa";
 import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import toastConfig from "../../Utils/toastConfig";
 import axios from "axios";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 
 export default function AddPostModal() {
   const userFileInput = useRef();
   const [selectedImage, setSelectedImage] = useState(null);
-  const { register, handleSubmit } = useForm({
+  const schema = z.object({
+    name: z.string().min(1, "Name is required"),
+  });
+  const {
+    register,
+    formState: { isSubmitting, isValid },
+    handleSubmit,
+  } = useForm({
+    mode: "onChange", // validate on change so isValid updates properly
     defaultValues: {
       name: "",
     },
+    resolver: zodResolver(schema),
   });
 
   const handleUserAddPost = async (values) => {
@@ -24,6 +35,8 @@ export default function AddPostModal() {
       toast.error("Please select an image", toastConfig);
       return;
     }
+    console.log("formData", ...formData);
+
     try {
       const { data } = await axios.post(
         `${import.meta.env.VITE_BASE_URL}posts`,
@@ -40,6 +53,7 @@ export default function AddPostModal() {
       }
     } catch (error) {
       console.log(error);
+      toast.error("Post added failed", toastConfig);
     }
   };
 
@@ -84,7 +98,16 @@ export default function AddPostModal() {
             className="hidden"
           />
         </div>
-        <Button className="bg-blue-600 hover:bg-blue-700">Add Post</Button>
+        <Button
+          type="submit"
+          disabled={!isValid || isSubmitting}
+          className="bg-blue-600 hover:bg-blue-700"
+        >
+          {isSubmitting && (
+            <Spinner aria-label="Spinner button example" size="sm" light />
+          )}
+          Add Post
+        </Button>
       </form>
     </div>
   );
