@@ -1,7 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap');
 @import "tailwindcss";
 @plugin "flowbite-react/plugin/tailwindcss";
 @source "../.flowbite-react/class-list.json";
+@custom-variant dark (&:where(.dark, .dark *));
 
+body{
+    font-family: "Roboto",sans-serif;
+}
+.logo{
+    font-family: "Alex Brush",cursive;
+}
+@theme{
+--color-purble:#6941c6
+--breakpoint-2xl:1400px
+}
+
+@layer utilities{
+.container{
+    margin-inline: auto;
+}
+}
+
+@layer base{
+    h1,h2,h3,h4,h5,h6{@apply font-bold}
+    
+    h1{
+        font-size: 2em;
+    }
+        h2{
+        font-size: 1.5em;
+    }
+        h3{
+        font-size: 1.17em;
+    }
+        h4{
+        font-size: 1em;
+    }    h5{
+        font-size: 0.83em;
+    }
+    h6{
+        font-size: 0.67em;
+    }
+
+}
 
 .active{
     @apply text-blue-700;

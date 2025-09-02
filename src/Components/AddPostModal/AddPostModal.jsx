@@ -7,6 +7,7 @@ import toastConfig from "../../Utils/toastConfig";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export default function AddPostModal() {
   const userFileInput = useRef();
@@ -14,6 +15,7 @@ export default function AddPostModal() {
   const schema = z.object({
     name: z.string().min(1, "Name is required"),
   });
+  // useForm
   const {
     register,
     formState: { isSubmitting, isValid },
@@ -25,8 +27,22 @@ export default function AddPostModal() {
     },
     resolver: zodResolver(schema),
   });
-
-  const handleUserAddPost = async (values) => {
+  let queryClient = useQueryClient();
+  // useMutation
+  let { mutate: handleUserAddPost } = useMutation({
+    mutationFn: AddPost,
+    onSuccess: () => {
+      toast.success("Please added successfully");
+      queryClient.invalidateQueries({
+        queryKey: ["posts"],
+      });
+    },
+    onError: () => {
+      toast.error("Please added failed");
+    },
+  });
+  // AddPost
+  async function AddPost(values) {
     const formData = new FormData();
     formData.append("body", values.name);
     if (selectedImage) {
@@ -39,7 +55,7 @@ export default function AddPostModal() {
 
     try {
       const { data } = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}posts`,
+        `${import.meta.env.VITE_BASE_URL}posts?limit=20&sort=createdAt`,
         formData,
         {
           headers: {
@@ -48,14 +64,11 @@ export default function AddPostModal() {
           },
         }
       );
-      if (data.message === "success") {
-        toast.success("Post added successfully", toastConfig);
-      }
+      console.log(data);
     } catch (error) {
       console.log(error);
-      toast.error("Post added failed", toastConfig);
     }
-  };
+  }
 
   const handleUserImage = (e) => {
     const img = e.target.files[0];
@@ -71,44 +84,42 @@ export default function AddPostModal() {
   };
 
   return (
-    <div className="bg-black/60 fixed inset-0 flex justify-center items-center">
-      <form
-        onSubmit={handleSubmit(handleUserAddPost)}
-        className="flex w-1/3 flex-col gap-4 bg-black p-6 rounded-md"
-      >
-        <label htmlFor="body">Post Body</label>
-        <Textarea
-          {...register("name")}
-          id="comment"
-          placeholder="Leave a comment ..."
-          required
-          rows={4}
+    <form
+      onSubmit={handleSubmit(handleUserAddPost)}
+      className="flex  flex-col gap-4 max-w-xl   bg-black p-2 rounded-lg"
+    >
+      <label htmlFor="body">Post Body</label>
+      <Textarea
+        {...register("name")}
+        id="comment"
+        placeholder="Leave a comment ..."
+        required
+        rows={4}
+      />
+      <div className="flex justify-between items-center text-xl">
+        <p>Upload Image</p>
+        <FaUpload
+          onClick={() => userFileInput.current.click()}
+          className="cursor-pointer"
         />
-        <div className="flex justify-between items-center text-xl">
-          <p>Upload Image</p>
-          <FaUpload
-            onClick={() => userFileInput.current.click()}
-            className="cursor-pointer"
-          />
-          <input
-            ref={userFileInput}
-            onChange={handleUserImage}
-            type="file"
-            accept="image/*"
-            className="hidden"
-          />
-        </div>
-        <Button
-          type="submit"
-          disabled={!isValid || isSubmitting}
-          className="bg-blue-600 hover:bg-blue-700"
-        >
-          {isSubmitting && (
-            <Spinner aria-label="Spinner button example" size="sm" light />
-          )}
-          Add Post
-        </Button>
-      </form>
-    </div>
+        <input
+          ref={userFileInput}
+          onChange={handleUserImage}
+          type="file"
+          accept="image/*"
+          className="hidden"
+        />
+      </div>
+      <Button
+        type="submit"
+        disabled={!isValid || isSubmitting}
+        className="bg-blue-600 hover:bg-blue-700"
+      >
+        {isSubmitting && (
+          <Spinner aria-label="Spinner button example" size="sm" light />
+        )}
+        Add Post
+      </Button>
+    </form>
   );
 }

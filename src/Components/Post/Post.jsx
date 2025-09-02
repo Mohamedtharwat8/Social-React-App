@@ -4,7 +4,9 @@ import Comment from "../Comments/Comments";
 import { FaHeart } from "react-icons/fa";
 import { FaComment } from "react-icons/fa";
 import { FaShare } from "react-icons/fa";
-
+import userImageDefualt from "../../assets/avatar.webp";
+import postImageDefualt from "../../assets/OIP.webp";
+import moment from "moment/moment";
 export default function Post({ post }) {
   let {
     _id,
@@ -18,42 +20,34 @@ export default function Post({ post }) {
   return (
     <>
       <div>
-        {/* hover:scale-105 duration-300 */}
-        <Card
-          key={_id}
-          className=" h-[500px] overflow-hidden  max-w-xl mx-auto   "
-          imgAlt="Meaningful alt text for an image that is not purely decorative"
-        >
+        {/* fixed */}
+        <Card className="max-w-xl text-white border-gray-200 shadow-lg  bg-gray-900">
           <header key={user_id} className="  flex items-center  gap-2">
             <Avatar
               alt="Post Creator"
-              img={userImage ? userImage : "https://picsum.photos/200/300"}
+              img={userImage ? userImage : userImageDefualt}
               rounded
             />
             <div className="">
               <h3>{userName}</h3>
-              <p>{createdAt}</p>
+              <p>{moment(createdAt).startOf("minute").fromNow()}</p>
             </div>
           </header>
           {/* body */}
-          <p className="font-normal text-gray-700 dark:text-gray-400 line-clamp-1">
+          <h3 className="text-2xl font-bold tracking-tight  text-white dark:text-white line-clamp-2">
             {body}
-          </p>
-          <div className=" h-[300px] overflow-hidden  w-full object-cover">
-            <img
-              src={postImage}
-              className=" font-normal text-gray-700 dark:text-gray-400"
-            />
-          </div>
-          <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            Comments
-          </h5>
+          </h3>
+
+          <img
+            src={postImage ? postImage : postImageDefualt}
+            className=" font-normal text-gray-700 dark:text-gray-400"
+          />
           {/* footer */}
           <div className="flex items-center justify-between border-b-1 border-gray-200 p-2">
             <FaHeart />
             <div className="flex items-center gap-2">
-              <span>{ comments?.length}</span>
-            <FaComment />
+              <span>{comments?.length}</span>
+              <FaComment />
             </div>
             <FaShare />
           </div>

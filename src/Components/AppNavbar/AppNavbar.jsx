@@ -26,7 +26,10 @@ export default function AppNavbar() {
     navigate("/login");
   };
   return (
-    <Navbar fluid>
+    <Navbar
+      fluid
+      className="  text-white border-gray-200 shadow-lg  bg-gray-900"
+    >
       {console.log(userData)}
       <NavbarBrand as={Link} to={"/"}>
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
