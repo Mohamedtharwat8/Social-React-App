@@ -1,16 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../Layout/Layout";
-import Profile from "../../Pages/Profile/Profile";
 import Posts from "../../Pages/Posts/Posts";
 import Login from "../../Pages/Auth/Login/Login";
 import Register from "../../Pages/Auth/Register/Register";
 import NotFound from "../NotFound/NotFound";
 import ProtectedRoute from "../../Guard/ProtectedRoute";
 import ProtectedAuth from "../../Guard/ProtectedAuth";
-import PostDetails from "../../Pages/Posts/PostDetails";
+import PostDetails from "../../Pages/PostDetails/PostDetails";
 import Edit from "../../Components/Post/PostEdit";
 import UploadPhoto from "../../Components/UploadPhoto/UploadPhoto";
 import ChangePassword from "../../Components/ChangePassword/ChangePassword";
+import Profile from "../../Pages/Auth/Profile/Profile";
 const routes = createBrowserRouter([
   {
     path: "",
@@ -25,7 +25,7 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: "/post/:id",
+        path: "/post-details/:id",
         element: (
           <ProtectedRoute>
             <PostDetails></PostDetails>
@@ -51,11 +51,12 @@ const routes = createBrowserRouter([
       {
         path: "profile",
         element: (
-          <ProtectedAuth>
-            <Profile />
-          </ProtectedAuth>
+          // <ProtectedAuth>
+          <Profile />
+          // </ProtectedAuth>
         ),
       },
+
       {
         path: "/edit",
         element: (

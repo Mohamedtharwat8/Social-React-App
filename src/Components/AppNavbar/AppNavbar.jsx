@@ -30,7 +30,6 @@ export default function AppNavbar() {
       fluid
       className="  text-white border-gray-200 shadow-lg  bg-gray-900"
     >
-      {console.log(userData)}
       <NavbarBrand as={Link} to={"/"}>
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
           Social App
@@ -61,7 +60,12 @@ export default function AppNavbar() {
             </span>
           </DropdownHeader>
           {token ? (
-            <DropdownItem onClick={handleUserSignOut}>Sign out</DropdownItem>
+            <>
+              <DropdownItem as={NavLink} to={"/profile"}>
+                Profile
+              </DropdownItem>
+              <DropdownItem onClick={handleUserSignOut}>Sign out</DropdownItem>
+            </>
           ) : (
             <>
               <DropdownItem as={NavLink} to={"/register"}>
@@ -81,7 +85,7 @@ export default function AppNavbar() {
           <NavbarLink as={NavLink} to={"/"}>
             Home
           </NavbarLink>
-          <NavbarLink as={NavLink} to={"/profile"}>
+          <NavbarLink as={NavLink} to={"profile"}>
             Profile
           </NavbarLink>
         </NavbarCollapse>

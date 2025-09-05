@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export default function AddPostModal() {
+export default function AddPost() {
   const userFileInput = useRef();
   const [selectedImage, setSelectedImage] = useState(null);
   const schema = z.object({
@@ -20,6 +20,7 @@ export default function AddPostModal() {
     register,
     formState: { isSubmitting, isValid },
     handleSubmit,
+    reset,
   } = useForm({
     mode: "onChange", // validate on change so isValid updates properly
     defaultValues: {
@@ -36,6 +37,7 @@ export default function AddPostModal() {
       queryClient.invalidateQueries({
         queryKey: ["posts"],
       });
+      reset();
     },
     onError: () => {
       toast.error("Please added failed");

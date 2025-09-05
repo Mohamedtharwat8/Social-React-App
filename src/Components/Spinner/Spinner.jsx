@@ -1,6 +1,6 @@
-import React from "react";
-import { Hourglass } from "react-loader-spinner";
-export default function Loading() {
+import React from 'react'
+
+export default function Spinner() {
   return (
     <Hourglass
       visible={true}
