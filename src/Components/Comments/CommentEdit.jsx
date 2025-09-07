@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { QueryClient, useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AuthContext } from "../../Context/Context";
 import DropDownMenu from "../../Shared/DropDownMenu/DropDownMenu";
 import {
@@ -17,7 +17,7 @@ export default function CommentEdit({ user_id, commentId, commentBody }) {
   console.log(commentId, commentBody);
 
   let { userData } = useContext(AuthContext);
-  let queryClient = new QueryClient();
+  const queryClient = useQueryClient();
   const [isEdit, setIsEdit] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
 
@@ -52,24 +52,22 @@ export default function CommentEdit({ user_id, commentId, commentBody }) {
     mutationFn: editComment,
     onSuccess: () => {
       toast.success("Comment updated successfully");
-      queryClient.invalidateQueries({ queryKey: ["posts"] });
-      queryClient.invalidateQueries({ queryKey: ["user", userData?._id] });
+      queryClient.invalidateQueries({ queryKey: ["posts"] }); // This will refetch all posts
+      setIsEdit(false);
     },
     onError: () => {
       toast.error("Comment updated failed");
-      setIsEdit(false);
     },
   });
   let { mutate: handleDeleteComment } = useMutation({
     mutationFn: deleteComment,
     onSuccess: () => {
       toast.success("Comment Delete successfully");
-      queryClient.invalidateQueries({ queryKey: ["posts"] });
-      queryClient.invalidateQueries({ queryKey: ["user", userData?._id] });
+      queryClient.invalidateQueries({ queryKey: ["posts"] }); // This will refetch all posts
+      setIsDelete(false);
     },
     onError: () => {
       toast.error("Comment Delete failed");
-      setIsEdit(false);
     },
   });
 
@@ -102,9 +100,8 @@ export default function CommentEdit({ user_id, commentId, commentBody }) {
               </div>
               <button
                 type="submit"
-                className="bg-gray-700 text-white  rounded-xl w-2/4 mx-auto cursor-pointer"
+                className="bg-blue-600 text-white rounded-xl w-2/4 mx-auto cursor-pointer"
               >
-                {/* onClick={() => setIsEdit(false)} */}
                 Update
               </button>
             </form>
@@ -115,18 +112,19 @@ export default function CommentEdit({ user_id, commentId, commentBody }) {
         <Modal show={isDelete} onClose={() => setIsDelete(false)}>
           <ModalHeader>Delete Comment</ModalHeader>
           <ModalBody>
-            <form
-              onSubmit={handleSubmit(handleDeleteComment)}
-              className="w-full h-full flex flex-col justify-center gap-5      "
-            >
-              <h2>Are you sure you want to delete this comment?</h2>
-              <button
-                type="submit"
-                className="bg-gray-700 text-white  rounded-xl w-2/4 mx-auto cursor-pointer"
-              >
-                Delete
-              </button>
-            </form>
+            <div className="text-center">
+              <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                Are you sure you want to delete this comment?
+              </h3>
+              <div className="flex justify-center gap-4">
+                <Button color="failure" onClick={() => handleDeleteComment()}>
+                  Delete
+                </Button>
+                <Button color="gray" onClick={() => setIsDelete(false)}>
+                  No, cancel
+                </Button>
+              </div>
+            </div>
           </ModalBody>
         </Modal>
       )}
