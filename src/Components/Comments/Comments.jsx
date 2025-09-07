@@ -4,6 +4,7 @@ import { Avatar } from "flowbite-react";
 import { Card } from "flowbite-react";
 import moment from "moment/moment";
 import userImageDefualt from "../../assets/avatar.webp";
+import CommentEdit from "./CommentEdit";
 
 export default function Comments({ comment }) {
   // console.log("comments in comment component", comment);
@@ -39,11 +40,16 @@ export default function Comments({ comment }) {
                   </p>
                 </div>
                 <div className="flex  flex-wrap items-center text-base font-semibold text-gray-900 dark:text-white">
-                  {content}
+                  <CommentEdit
+                    commentId={comment_id}
+                    commentBody={content}
+                    user_id
+                  ={user_id}/>
                 </div>
               </div>
             </li>
           </ul>
+          <div className="mt-2">{content}</div>
         </div>
       </Card>
     </>

@@ -47,3 +47,7 @@ body{
 .active{
     @apply text-blue-700;
 }
+
+.avatar *{
+    @apply size-full object-cover;
+}

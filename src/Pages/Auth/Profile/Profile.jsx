@@ -4,6 +4,7 @@ import React, { useContext } from "react";
 import Loader from "../../../Components/Loader/Loader";
 import Posts from "../../Posts/Posts";
 import { AuthContext } from "../../../Context/Context";
+import ProfileCard from "../../../Components/profile/ProfileCard";
 
 export default function Profile() {
   // let { userData } = useContext(AuthContext);
@@ -24,8 +25,9 @@ export default function Profile() {
   //   queryFn: getProfilePosts,
   // });
   return (
-    <>
+    <section className="flex flex-col justify-center my-3 mx-auto gap-4">
+      <ProfileCard />
       <Posts isProfile={true} />
-    </>
+    </section>
   );
 }

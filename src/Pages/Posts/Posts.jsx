@@ -56,7 +56,7 @@ export default function Posts({ isProfile }) {
   let { data: posts, isLoading } = useQuery({
     queryKey: ["posts"],
     queryFn: getAllPosts,
-    select: (data) => data.posts, // here data is response.data from axios
+    select: (data) => data?.posts, // here data is response.data from axios
   });
   return (
     <>
